@@ -1,0 +1,11 @@
+transmit_pin: 2
+devices:
+  - # A
+    enable:  4261201
+    disable: 4261204
+  - # B
+    enable:  4264273
+    disable: 4264276
+  - # C
+    enable:  4265041
+    disable: 4265044

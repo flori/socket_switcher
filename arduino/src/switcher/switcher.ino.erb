@@ -1,0 +1,79 @@
+#include <RCSwitch.h>
+
+#define DEBUG 0
+#define DEVICE_MIN 0
+#define DEVICE_MAX <%= device_max %>
+#define RDY "RDY 0 <%= device_max %>"
+#define STATE_OFF 0
+#define STATE_ON  1
+#define NL 10
+#define CR 13
+
+static unsigned long deviceOn[]  = { <%= device_on * ', ' %> };
+static unsigned long deviceOff[] = { <%= device_off * ', ' %> };
+
+RCSwitch mySwitch = RCSwitch();
+
+void setup() {
+#if DEBUG
+    for (int i = 8; i <= 11; i++) {
+        pinMode(i, OUTPUT);
+    }
+#endif
+    Serial.begin(9600, SERIAL_8N1);
+    Serial.setTimeout(1000);
+    Serial.println(RDY);
+
+    mySwitch.enableTransmit(<%= transmit_pin %>);
+    //mySwitch.setPulseLength(330);
+    //mySwitch.setRepeatTransmit(15);
+}
+
+void setState(int device, int state) {
+#if DEBUG
+    digitalWrite(device + 8, state ? HIGH : LOW);
+#endif
+
+    mySwitch.send(state ? deviceOn[device] : deviceOff[device], 24);
+}
+
+void switchDevice(int device, int state) {
+    if (device < DEVICE_MIN || device > DEVICE_MAX) {
+        Serial.println("NAK device");
+        return;
+    }
+    if (state != STATE_OFF && state != STATE_ON) {
+        Serial.println("NAK state");
+        return;
+    }
+    setState(device, state);
+    Serial.println("ACK");
+}
+
+bool readEol() {
+    if (Serial.peek() == CR) {
+        Serial.read();
+        if (Serial.peek() == NL) {
+            Serial.read();
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void loop() {
+    while (Serial.available() > 0) {
+        if (readEol()) {
+            Serial.println(RDY);
+            break;
+        }
+
+        int device = Serial.parseInt();
+        int state = Serial.parseInt();
+
+        if (readEol()) {
+            switchDevice(device, state);
+        }
+    }
+}

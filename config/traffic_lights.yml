@@ -1,0 +1,8 @@
+transmit_pin: 2
+devices:
+  - # GREEN
+    enable:  4474193
+    disable: 4474196
+  - # RED
+    enable:  4477265
+    disable: 4477268
