@@ -5,4 +5,4 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'byebug', group: :development
-gem 'complex_config', path: '~/scm/complex_config'
+gem 'complex_config'

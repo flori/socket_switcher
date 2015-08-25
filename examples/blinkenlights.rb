@@ -16,7 +16,7 @@ max = (ENV['MAX_DEVICE'] || 3).to_i
       rescue SocketSwitcher::CommunicationError => e
         warn "Caught #{e.class}: #{e} => exiting!"
         exit
-      rescue SocketSwitcher::LigthSwitchError => e
+      rescue SocketSwitcher::SocketSwitcherError => e
         warn "Caught #{e.class}: #{e}"
         sleep rand
       end

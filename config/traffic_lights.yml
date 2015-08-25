@@ -6,3 +6,7 @@ devices:
   - # RED
     enable:  4477265
     disable: 4477268
+  - # AUX
+    enable:  4265041
+    disable: 4265044
+
