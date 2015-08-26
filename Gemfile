@@ -4,5 +4,8 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'byebug', group: :development
-gem 'complex_config'
+group :development, :test do
+  gem 'byebug'
+  gem "codeclimate-test-reporter", require: nil
+  gem 'complex_config'
+end
