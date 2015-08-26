@@ -8,3 +8,5 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
+env:
+  - CODECLIMATE_REPO_TOKEN=607f96d9b5fe4746c962712ee3a545da58d79f2b2c6dd9a35c2087fbead2067b
