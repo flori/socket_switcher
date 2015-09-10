@@ -5,7 +5,7 @@ require 'socket_switcher'
 
 specifier = ARGV.shift or fail "need port specifier"
 port = SocketSwitcher::Port.new(specifier, timeout: 2000, debug: true)
-max = (ENV['MAX_DEVICE'] || 3).to_i
+max = (ENV['MAX_DEVICE'] || 2).to_i
 (0..max).map do |i|
   Thread.new do
     loop do
